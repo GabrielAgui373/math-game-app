@@ -11,7 +11,7 @@ export default function StartPage() {
   };
 
   return (
-    <div className="flex  min-h-screen  items-center justify-center ">
+    <div className="flex flex-1 items-center justify-center ">
       <Button onClick={handleStartGame}>Start Game</Button>
     </div>
   );

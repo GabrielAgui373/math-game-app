@@ -48,7 +48,7 @@ export default function TopButtons() {
   const shouldHideConfigButton = HIDDEN_BUTTON_PATHS.has(pathName);
 
   return (
-    <div className="absolute top-6 right-6 flex gap-3">
+    <div className=" p-3 flex gap-1 justify-center items-center">
       {/* Fullscreen toggle button */}
       <Tooltip
         content={`${isFullscreen ? "exit full screen" : "enter full screen"}`}

@@ -52,7 +52,7 @@ export default function GameOver() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen items-center justify-center">
+    <div className="flex flex-col flex-1 items-center justify-center">
       <div className="  max-w-sm w-screen p-4 flex flex-col gap-5 justify-center">
         <h1 className="  text-center text-3xl font-semibold text-white">
           Game Over

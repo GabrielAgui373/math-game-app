@@ -76,7 +76,7 @@ export default function GamerPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen items-center justify-center p-4">
+    <div className="flex flex-col flex-1 items-center justify-center p-4">
       <div className="flex flex-col items-center justify-center w-full max-w-md ">
         <div className="w-full  p-6 space-y-6">
           <Timer duration={settings.timeInSeconds} onEnd={handleTimerEnd} />

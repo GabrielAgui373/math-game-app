@@ -17,9 +17,9 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body>
         <SettingsProvider>
-          <main className="min-h-screen min-w-screen flex flex-col">
-            {children}
+          <main className="flex flex-col h-screen">
             <TopButtons />
+            {children}
           </main>
         </SettingsProvider>
       </body>

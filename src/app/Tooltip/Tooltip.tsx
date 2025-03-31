@@ -9,10 +9,13 @@ export default function Tooltip({
 }: TooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const [needsWrap, setNeedsWrap] = useState(false);
 
   const showTooltip = () => {
     const id = setTimeout(() => {
       setIsVisible(true);
+      // Verifica se o tooltip está saindo da tela
+      checkTooltipWidth();
     }, delay);
     setTimeoutId(id);
   };
@@ -22,6 +25,20 @@ export default function Tooltip({
       clearTimeout(timeoutId);
     }
     setIsVisible(false);
+  };
+
+  const checkTooltipWidth = () => {
+    // Espera um frame para o tooltip ser renderizado
+    requestAnimationFrame(() => {
+      const tooltip = document.querySelector('[role="tooltip"]') as HTMLElement;
+      if (tooltip) {
+        const tooltipRect = tooltip.getBoundingClientRect();
+        // Verifica se o tooltip está saindo da viewport
+        const isOverflowing =
+          tooltipRect.right > window.innerWidth || tooltipRect.left < 0;
+        setNeedsWrap(isOverflowing);
+      }
+    });
   };
 
   const positionClasses = {
@@ -38,10 +55,10 @@ export default function Tooltip({
         onMouseLeave={hideTooltip}
         onClick={(e) => {
           e.preventDefault();
-          e.stopPropagation(); // Evita que eventos de clique propaguem
+          e.stopPropagation();
         }}
-        className="inline-block cursor-default" // cursor-default para evitar comportamento de clique
-        tabIndex={-1} // Remove a capacidade de focar via teclado
+        className="inline-block cursor-default"
+        tabIndex={-1}
       >
         {children}
       </div>
@@ -50,10 +67,13 @@ export default function Tooltip({
         role="tooltip"
         className={`absolute z-50 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm ${
           positionClasses[position]
-        } whitespace-nowrap transition-opacity duration-200 ${
+        } transition-opacity duration-200 ${
           isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
+        } ${
+          needsWrap
+            ? "whitespace-normal break-words max-w-xs"
+            : "whitespace-nowrap"
         }`}
-        style={{ width: "fit-content" }}
       >
         {content}
         <div
