@@ -6,6 +6,7 @@ import { FaCompress, FaExpand } from "react-icons/fa";
 import { HiOutlineCog } from "react-icons/hi";
 import ConfigDialog from "../ConfigDialog/ConfigDialog";
 import { usePathname } from "next/navigation";
+import Tooltip from "@/app/Tooltip/Tooltip";
 
 // Paths where the config button should be hidden
 const HIDDEN_BUTTON_PATHS = new Set(["/gamer", "/game-over"]);
@@ -49,21 +50,22 @@ export default function TopButtons() {
   return (
     <div className="absolute top-6 right-6 flex gap-3">
       {/* Fullscreen toggle button */}
-      <IconButton
-        onClick={handleToggleFullscreen}
-        aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+      <Tooltip
+        content={`${isFullscreen ? "exit full screen" : "enter full screen"}`}
+        position="bottom"
       >
-        {isFullscreen ? <FaCompress size={20} /> : <FaExpand size={20} />}
-      </IconButton>
+        <IconButton onClick={handleToggleFullscreen}>
+          {isFullscreen ? <FaCompress size={20} /> : <FaExpand size={20} />}
+        </IconButton>
+      </Tooltip>
 
       {/* Config button (hidden on specific paths) */}
       {!shouldHideConfigButton && (
-        <IconButton
-          onClick={() => setIsConfigDialogOpen(true)}
-          aria-label="Open settings"
-        >
-          <HiOutlineCog size={25} />
-        </IconButton>
+        <Tooltip content="settings" position="bottom">
+          <IconButton onClick={() => setIsConfigDialogOpen(true)}>
+            <HiOutlineCog size={25} />
+          </IconButton>
+        </Tooltip>
       )}
 
       {/* Config dialog/modal */}

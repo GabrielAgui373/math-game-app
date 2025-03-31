@@ -5,6 +5,7 @@ import { HiOutlineHome } from "react-icons/hi";
 import IconButton from "../components/IconButton/IconButton";
 import { MdReplay } from "react-icons/md";
 import { useEffect, useState } from "react";
+import Tooltip from "../Tooltip/Tooltip";
 
 interface GameResult {
   score: number;
@@ -87,21 +88,25 @@ export default function GameOver() {
         )}
 
         <div className="w-full flex items-center justify-center p-2 gap-3">
-          <IconButton
-            onClick={() => {
-              router.push("/");
-            }}
-          >
-            <HiOutlineHome size={24} />
-          </IconButton>
+          <Tooltip content="go to home" position="bottom">
+            <IconButton
+              onClick={() => {
+                router.push("/");
+              }}
+            >
+              <HiOutlineHome size={24} />
+            </IconButton>
+          </Tooltip>
 
-          <IconButton
-            onClick={() => {
-              router.push("/gamer");
-            }}
-          >
-            <MdReplay size={24} />
-          </IconButton>
+          <Tooltip content="play again" position="bottom">
+            <IconButton
+              onClick={() => {
+                router.push("/gamer");
+              }}
+            >
+              <MdReplay size={24} />
+            </IconButton>
+          </Tooltip>
         </div>
       </div>
     </div>
